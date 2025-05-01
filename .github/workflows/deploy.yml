@@ -24,6 +24,7 @@ jobs:
       - name: Build
         env:
           REACT_APP_BACKEND_BASE_URL: ${{ secrets.REACT_APP_BACKEND_BASE_URL }}
+          REACT_APP_PROXY_URL:  ${{ secrets.REACT_APP_PROXY_URL }}
         run: npm run build
 
       - name: Deploy to GitHub Pages
