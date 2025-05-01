@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/ElectricCoSalesPerson/static/css/main.e74e5b54.css",
+    "main.js": "/ElectricCoSalesPerson/static/js/main.3355c8f7.js",
+    "index.html": "/ElectricCoSalesPerson/index.html",
+    "main.e74e5b54.css.map": "/ElectricCoSalesPerson/static/css/main.e74e5b54.css.map",
+    "main.3355c8f7.js.map": "/ElectricCoSalesPerson/static/js/main.3355c8f7.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.e74e5b54.css",
+    "static/js/main.3355c8f7.js"
+  ]
+}
