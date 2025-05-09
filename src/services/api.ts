@@ -4,9 +4,9 @@ const proxyUrl = process.env.REACT_APP_PROXY_URL;
 
 function baseURL(isSandbox: boolean): string {
   if (isSandbox) {
-    return process.env.REACT_APP_BACKEND_BASE_URL ?? ""
-  } else {
     return process.env.REACT_APP_SANDBOX_BACKEND_BASE_URL ?? ""
+  } else {
+    return process.env.REACT_APP_BACKEND_BASE_URL ?? ""
   }
 }
 
