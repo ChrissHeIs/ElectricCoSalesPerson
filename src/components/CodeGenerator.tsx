@@ -75,6 +75,7 @@ const CodeGenerator: React.FC = () => {
     <div className="container">
       <header>
         <h1>Access Code Generator</h1>
+        <h3>{isSandbox ? "(Sandbox)" : "(Production)"}</h3>
         <button onClick={logout} className="btn btn-small">Logout</button>
       </header>
       
