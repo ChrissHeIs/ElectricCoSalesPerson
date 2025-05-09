@@ -1,11 +1,18 @@
 import { User, ApiResponse, AuthResponse } from '../types';
 
-const API_BASE_URL = process.env.REACT_APP_BACKEND_BASE_URL
 const proxyUrl = process.env.REACT_APP_PROXY_URL;
 
-export async function login(username: string, password: string): Promise<AuthResponse> {
+function baseURL(isSandbox: boolean): string {
+  if (isSandbox) {
+    return process.env.REACT_APP_BACKEND_BASE_URL ?? ""
+  } else {
+    return process.env.REACT_APP_SANDBOX_BACKEND_BASE_URL ?? ""
+  }
+}
+
+export async function login(username: string, password: string, isSandbox: boolean): Promise<AuthResponse> {
   try {
-    const apiUrl = `${API_BASE_URL}/accessTokens/loginSalesperson`;
+    const apiUrl = `${baseURL(isSandbox)}/accessTokens/loginSalesperson`;
     console.log(apiUrl);
     const url = `${proxyUrl}/api/proxy?url=${encodeURIComponent(apiUrl)}`;
     console.log(url);
@@ -33,10 +40,10 @@ export async function login(username: string, password: string): Promise<AuthRes
   }
 }
 
-export async function generateAccessCode(user: User, token: string): Promise<ApiResponse> {
+export async function generateAccessCode(user: User, token: string, isSandbox: boolean): Promise<ApiResponse> {
   try {
     console.log(token);
-    const response = await fetch(`${API_BASE_URL}/accessTokens/create`, {
+    const response = await fetch(`${baseURL(isSandbox)}/accessTokens/create`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

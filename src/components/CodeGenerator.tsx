@@ -9,7 +9,7 @@ const CodeGenerator: React.FC = () => {
   const [email, setEmail] = useState('');
   const [result, setResult] = useState<ApiResponse | null>(null);
   const [isLoading, setIsLoading] = useState(false);
-  const { logout, token } = useAuth();
+  const { logout, token, isSandbox } = useAuth();
 
   // Add token expiration check
   useEffect(() => {
@@ -52,7 +52,7 @@ const CodeGenerator: React.FC = () => {
     };
     
     setIsLoading(true);
-    const response = await generateAccessCode(user, token);
+    const response = await generateAccessCode(user, token, isSandbox);
     
     // Handle 401 error specially
     if (!response.success && response.error?.includes('Authentication expired')) {

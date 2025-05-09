@@ -10,6 +10,7 @@ interface AuthProviderProps {
 
 export function AuthProvider({ children }: AuthProviderProps) {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
+  const [isSandbox, setIsSandbox] = useState<boolean>(false);
   const [token, setToken] = useState<string | null>(null);
 
   useEffect(() => {
@@ -23,8 +24,9 @@ export function AuthProvider({ children }: AuthProviderProps) {
     }
   }, []);
 
-  const login = async (username: string, password: string): Promise<boolean> => {
-    const response = await apiLogin(username, password);
+  const login = async (username: string, password: string, isSandbox: boolean): Promise<boolean> => {
+    setIsSandbox(isSandbox);
+    const response = await apiLogin(username, password, isSandbox);
     
     if (response.token) {
       setToken(response.token);
@@ -46,7 +48,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
   };
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, login, logout, token }}>
+    <AuthContext.Provider value={{ isAuthenticated, isSandbox, login, logout, token }}>
       {children}
     </AuthContext.Provider>
   );
