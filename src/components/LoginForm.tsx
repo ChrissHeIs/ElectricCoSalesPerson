@@ -4,7 +4,6 @@ import { useAuth } from '../contexts/AuthContext';
 const LoginForm: React.FC = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [isSandbox, setIsSandbox] = useState(false);
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const { login } = useAuth();
@@ -59,20 +58,6 @@ const LoginForm: React.FC = () => {
             required 
             disabled={isLoading}
           />
-        </div>
-
-        <div className="form-group">
-          <label htmlFor="isSandbox" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <input
-              type="checkbox"
-              id="isSandbox"
-              checked={isSandbox}
-              onChange={(e) => setIsSandbox(e.target.checked)}
-              disabled={isLoading}
-              style={{ width: 'auto', margin: 0 }}
-            />
-            Sandbox
-          </label>
         </div>
         
         {error && <div className="error-message">{error}</div>}
