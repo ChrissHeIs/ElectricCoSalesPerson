@@ -20,7 +20,7 @@ const LoginForm: React.FC = () => {
 
     setIsLoading(true);
     try {
-      const loginSuccess = await login(username, password, isSandbox);
+      const loginSuccess = await login(username, password);
       if (!loginSuccess) {
         setError('Invalid username or password');
       }

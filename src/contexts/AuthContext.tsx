@@ -10,30 +10,34 @@ interface AuthProviderProps {
 
 export function AuthProvider({ children }: AuthProviderProps) {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
-  const [isSandbox, setIsSandbox] = useState<boolean>(false);
-  const [token, setToken] = useState<string | null>(null);
+  const [tokenProd, setTokenProd] = useState<string | null>(null);
+  const [tokenSandbox, setTokenSandbox] = useState<string | null>(null);
 
   useEffect(() => {
     // Check if user is already authenticated
-    const storedToken = localStorage.getItem('authToken');
+    const storedTokenProd = localStorage.getItem('authToken_Prod');
+    const storedTokenSandbox = localStorage.getItem('authToken_Sandbox');
     // const tokenExpiry = localStorage.getItem('tokenExpiry');
     
-    if (storedToken) {
-        setToken(storedToken);
+    if (storedTokenProd && storedTokenProd) {
+        setTokenProd(storedTokenProd);
+        setTokenSandbox(storedTokenSandbox);
         setIsAuthenticated(true);
     }
   }, []);
 
-  const login = async (username: string, password: string, isSandbox: boolean): Promise<boolean> => {
-    setIsSandbox(isSandbox);
-    const response = await apiLogin(username, password, isSandbox);
+  const login = async (username: string, password: string): Promise<boolean> => {
+    const responseSandbox = await apiLogin(username, password, true);
+    const responseProd = await apiLogin(username, password, false);
     
-    if (response.token) {
-      setToken(response.token);
+    if (responseSandbox.token && responseProd.token) {
+      setTokenProd(responseProd.token);
+      setTokenSandbox(responseSandbox.token);
       setIsAuthenticated(true);
       
       // Store token and expiry in localStorage
-      localStorage.setItem('authToken', response.token);
+      localStorage.setItem('authToken_Sandbox', responseSandbox.token);
+      localStorage.setItem('authToken_Prod', responseProd.token);
       
       return true;
     }
@@ -41,14 +45,16 @@ export function AuthProvider({ children }: AuthProviderProps) {
   };
 
   const logout = (): void => {
-    setToken(null);
+    setTokenProd(null);
+    setTokenSandbox(null);
     setIsAuthenticated(false);
-    localStorage.removeItem('authToken');
+    localStorage.removeItem('authToken_Sandbox');
+    localStorage.removeItem('authToken_Prod')
     localStorage.removeItem('tokenExpiry');
   };
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, isSandbox, login, logout, token }}>
+    <AuthContext.Provider value={{ isAuthenticated, login, logout, tokenProd, tokenSandbox }}>
       {children}
     </AuthContext.Provider>
   );

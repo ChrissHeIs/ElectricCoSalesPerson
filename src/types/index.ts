@@ -16,8 +16,8 @@ export interface User {
   
   export interface AuthContextType {
     isAuthenticated: boolean;
-    isSandbox: boolean;
-    login: (username: string, password: string, isSandbox: boolean) => Promise<boolean>;
+    login: (username: string, password: string) => Promise<boolean>;
     logout: () => void;
-    token: string | null;
+    tokenProd: string | null;
+    tokenSandbox: string | null;
   }

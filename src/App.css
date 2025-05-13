@@ -53,6 +53,12 @@ input {
   margin-top: 20px;
 }
 
+.button-group label {
+  display: flex;
+  align-items: center; /* Vertically center the radio button and text */
+  gap: 8px; /* Space between radio button and text */
+}
+
 .btn {
   padding: 10px 20px;
   background-color: #f8f9fa;

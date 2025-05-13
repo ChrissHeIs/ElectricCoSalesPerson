@@ -9,7 +9,8 @@ const CodeGenerator: React.FC = () => {
   const [email, setEmail] = useState('');
   const [result, setResult] = useState<ApiResponse | null>(null);
   const [isLoading, setIsLoading] = useState(false);
-  const { logout, token, isSandbox } = useAuth();
+  const { logout, tokenProd, tokenSandbox } = useAuth();
+  const [environment, setEnvironment] = useState<'sandbox' | 'production'>('production');
 
   // Add token expiration check
   useEffect(() => {
@@ -39,6 +40,9 @@ const CodeGenerator: React.FC = () => {
       alert('Please fill in all fields');
       return;
     }
+
+    const isSandbox = environment === 'sandbox'
+    const token = environment === 'sandbox' ? tokenSandbox : tokenProd
     
     if (!token) {
       alert('Authentication error. Please login again.');
@@ -65,6 +69,10 @@ const CodeGenerator: React.FC = () => {
     setIsLoading(false);
   };
 
+  const handleEnvironmentChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setEnvironment(event.target.value as 'sandbox' | 'production');
+  };
+
   const handleReset = () => {
     setName('');
     setEmail('');
@@ -75,7 +83,6 @@ const CodeGenerator: React.FC = () => {
     <div className="container">
       <header>
         <h1>Access Code Generator</h1>
-        <h3>{isSandbox ? "(Sandbox)" : "(Production)"}</h3>
         <button onClick={logout} className="btn btn-small">Logout</button>
       </header>
       
@@ -121,6 +128,29 @@ const CodeGenerator: React.FC = () => {
             >
               Reset
             </button>
+
+            <label>
+              <input
+                type="radio"
+                name="environment"
+                value="production"
+                checked={environment === 'production'}
+                onChange={handleEnvironmentChange}
+                disabled={isLoading}
+              />
+              Production
+            </label>
+            <label>
+              <input
+                type="radio"
+                name="environment"
+                value="sandbox"
+                checked={environment === 'sandbox'}
+                onChange={handleEnvironmentChange}
+                disabled={isLoading}
+              />
+              Sandbox
+            </label>
           </div>
         </form>
         
