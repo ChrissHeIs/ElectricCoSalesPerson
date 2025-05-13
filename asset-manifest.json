@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/ElectricCoSalesPerson/static/css/main.9a2b8231.css",
-    "main.js": "/ElectricCoSalesPerson/static/js/main.6062e92d.js",
+    "main.js": "/ElectricCoSalesPerson/static/js/main.1b0384bb.js",
     "index.html": "/ElectricCoSalesPerson/index.html",
     "main.9a2b8231.css.map": "/ElectricCoSalesPerson/static/css/main.9a2b8231.css.map",
-    "main.6062e92d.js.map": "/ElectricCoSalesPerson/static/js/main.6062e92d.js.map"
+    "main.1b0384bb.js.map": "/ElectricCoSalesPerson/static/js/main.1b0384bb.js.map"
   },
   "entrypoints": [
     "static/css/main.9a2b8231.css",
-    "static/js/main.6062e92d.js"
+    "static/js/main.1b0384bb.js"
   ]
 }
